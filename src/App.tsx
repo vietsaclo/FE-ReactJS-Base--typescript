@@ -6,6 +6,7 @@ import { useRoutes } from 'react-router-dom';
 // import HomePage from './home-page/HomePage';
 import loadable from '@loadable/component';
 import LoadingTopPageFallBack from './components/common/LoadingTopPageFallback';
+import SelectLang from './components/common/SelectLang';
 
 const PageNotFoundView = loadable(() => import('./other-pages/PageNotFoundView'), {
   fallback: <LoadingTopPageFallBack />,
@@ -49,7 +50,12 @@ const App: React.FC = () => {
 
   const routing = useRoutes(listRoute);
 
-  return <>{routing}</>;
+  return (
+    <div className='p-1'>
+      <SelectLang />
+      {routing}
+    </div>
+  );
 }
 
 export default App;
