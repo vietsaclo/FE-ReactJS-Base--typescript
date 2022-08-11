@@ -5,15 +5,16 @@ import { useRoutes } from 'react-router-dom';
 // import LoginPage from './login-page/LoginPage';
 // import HomePage from './home-page/HomePage';
 import loadable from '@loadable/component';
+import LoadingTopPageFallBack from './components/common/LoadingTopPageFallback';
 
 const PageNotFoundView = loadable(() => import('./other-pages/PageNotFoundView'), {
-  fallback: <div>Loading...</div>,
+  fallback: <LoadingTopPageFallBack />,
 });
 const LoginPage = loadable(() => import('./login-page/LoginPage'), {
-  fallback: <div>Loading...</div>,
+  fallback: <LoadingTopPageFallBack />,
 });
 const HomePage = loadable(() => import('./home-page/HomePage'), {
-  fallback: <div>Loading...</div>,
+  fallback: <LoadingTopPageFallBack />,
 });
 
 interface PageRoute {
