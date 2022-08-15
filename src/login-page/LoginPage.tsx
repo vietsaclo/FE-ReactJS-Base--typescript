@@ -3,14 +3,38 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../app-store/hooks";
 import { userLogin, userLogout, selectSessionUser } from "../app-reducers/SessionUserReducer";
+import LoadingComponent from '../components/common/LoadingComponent';
+import { UI } from '../utils';
 
 const LoginPage: React.FC = () => {
   const { t } = useTranslation();
   const sessionUser = useAppSelector(selectSessionUser);
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  const handleLogin = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      dispatch(userLogin({
+        id: 1, userName: 'VietSaclo', fullName: 'Nguyen Quoc Viet',
+      }));
+      UI.toastSuccess('Login success');
+    }, 2000);
+  }
+
+  const handleLogout = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      dispatch(userLogout());
+      UI.toastInfo('Logout success');
+    }, 2000);
+  }
 
   return (
     <div className='container'>
+      <LoadingComponent isLoading={isLoading} />
       <h1>Login Page | {t('hello')}</h1>
       <ul>
         <li>
@@ -27,16 +51,14 @@ const LoginPage: React.FC = () => {
           <li>fullName: {sessionUser.fullName}</li>
           <li>task:
             <button
-              onClick={() => dispatch(userLogout())}
+              onClick={() => handleLogout()}
             >Logout Now</button>
           </li>
         </ul> :
         <div>
           User Not Login -
           <button
-            onClick={() => dispatch(userLogin({
-              id: 1, userName: 'VietSaclo', fullName: 'Nguyen Quoc Viet',
-            }))}
+            onClick={() => handleLogin()}
           >Login Now</button>
         </div>
       }
