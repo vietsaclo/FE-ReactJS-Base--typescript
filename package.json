@@ -1,5 +1,5 @@
 {
-  "name": "tradingview-html",
+  "name": "base-project",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
